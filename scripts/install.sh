@@ -10,6 +10,8 @@ log_info()  { echo -e "${GREEN}[INFO]${NC} $*"; }
 log_warn()  { echo -e "${YELLOW}[WARN]${NC} $*"; }
 
 REPO_ID="prime-rl"
+REPO_OWNER="nph4rd"
+REPO_BRANCH="hanabi-multiagent"
 
 # Flag defaults (can be overridden via env)
 SKIP_CLONE=${SKIP_CLONE:-0}
@@ -19,7 +21,7 @@ has_ssh_access() {
     # We try a quick ls-remote to avoid cloning on failure.
     # Disable -e for the probe so the script doesn't exit on a failed test.
     set +e
-    timeout 5s git ls-remote --heads git@github.com:PrimeIntellect-ai/${REPO_ID}.git >/dev/null 2>&1
+    timeout 5s git ls-remote --heads git@github.com:${REPO_OWNER}/${REPO_ID}.git >/dev/null 2>&1
     rc=$?
     set -e
     return $rc
@@ -56,10 +58,10 @@ main() {
         log_info "Determining best way to clone (SSH vs HTTPS)..."
         if has_ssh_access; then
             log_info "SSH access to GitHub works. Cloning via SSH."
-            git clone git@github.com:PrimeIntellect-ai/${REPO_ID}.git
+            git clone -b ${REPO_BRANCH} git@github.com:${REPO_OWNER}/${REPO_ID}.git
         else
             log_warn "SSH auth to GitHub not available. Cloning via HTTPS."
-            git clone https://github.com/PrimeIntellect-ai/${REPO_ID}.git
+            git clone -b ${REPO_BRANCH} https://github.com/${REPO_OWNER}/${REPO_ID}.git
         fi
 
         log_info "Entering project directory..."

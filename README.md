@@ -50,7 +50,7 @@ Currently, you **need at least one NVIDIA GPU to use PRIME-RL**. If you don't al
 Set up PRIME-RL in a single command.
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/PrimeIntellect-ai/prime-rl/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/nph4rd/prime-rl/hanabi-multiagent/scripts/install.sh | bash
 ```
 
 <details>
